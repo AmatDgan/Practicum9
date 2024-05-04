@@ -1,0 +1,129 @@
+#1
+with open ('input.txt', 'r', encoding = 'utf-8') as f:
+    s = f.readline().upper()
+with open ('output.txt', 'w', encoding = 'utf-8') as d:
+    d.write(s)
+
+
+#2
+with open ('input(1).txt', 'r', encoding = 'utf-8') as f:
+    with open ('output(1).txt', 'w', encoding = 'utf-8') as d:
+        for x in f.readlines():
+            if x[0] == 'A' or x[0] == 'a':
+                d.write(x)
+
+
+#3
+with open ('input(2).txt', 'r', encoding = 'utf-8') as f:
+    with open ('output(2).txt', 'w', encoding = 'utf-8') as d:
+        s = ''
+        for x in f.readlines():
+            s += x[0]
+        d.write(s)
+            
+
+#4
+with open ('input(3).txt', 'r', encoding = 'utf-8') as f:
+    with open ('output(3).txt', 'w', encoding = 'utf-8') as d:
+        for x in f.readlines():
+            if len(x) >= 21:
+                d.write(x)
+
+
+#5
+with open ('input(4).txt', 'r', encoding = 'utf-8') as f:
+    with open ('output(4).txt', 'w', encoding = 'utf-8') as d:
+        m = []
+        for x in range(3):
+            try:
+                m.append(int(f.readline()))
+            except ValueError:
+                print('data error')
+        if len(m) == 3:
+            try:
+                (m[0]) / (m[1])
+                s = str((m[0]) / (m[1]) + (m[2]))
+                d.write(s)
+            except ZeroDivisionError:
+                print('division by 0')
+        
+
+#6
+with open ('input(5).txt', 'r', encoding = 'utf-8') as f:
+    with open ('output(5).txt', 'w', encoding = 'utf-8') as d:
+        try:
+            total = int(f.readline())
+            s = f.readlines()
+            if total == len(s):
+                d.write('YES')
+            else:
+                d.write('NO')
+        except Exception:
+            d.write('ERROR')
+
+
+#7
+with open ('input(6).txt', 'r') as f_r:
+    s = f_r.read().splitlines()
+    with open ('input(6).txt', 'w') as f_w:
+        for i in range(len(s)):
+            if s[i] != "100":
+                f_w.write(f'{s[i]}\n')
+             
+            
+#8
+with open("input.txt", "r") as f:
+    with open("output.txt", "w") as f_2:
+        steps = f.read().splitlines()
+        if len(steps) == 365:
+            a = 28
+        elif len(steps) == 366:
+            a = 29
+        mouth_365 = [31, a, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        mof = 0
+        for days in mouth_365:
+            summa = 0
+            for i in range(mof, mof + days):
+                summa += int(steps[i])
+            print(summa / days)
+            f_2.write(f"{summa / days}\n")
+            mof += days
+
+
+#9
+import os
+
+os.mkdir(f"simple")
+with open("input.txt", "r") as f_r:
+    with open("simple\output.txt", "w") as f_w:
+        read = f_r.readlines()
+        for i in range(0, len(read), 2):
+            f_w.write(read[i])
+
+
+#10
+with open("input.txt", "r") as f_r:
+    with open("output.txt", "w") as f_w:
+        mouth_365 = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+        file_info = f_r.read().splitlines()
+
+        now_date = file_info[0].split(".")
+        now_date_s = 0
+        for l_1 in range(int(now_date[1]) - 1):
+            now_date_s += mouth_365[l_1]
+        now_date_s += int(now_date[0])
+
+        cells = int(file_info[1])
+
+        work_file = file_info[2:]
+        for i in range(cells):
+            el = work_file[i].split()
+            date = el[1].split(".")
+            date_sum = 0
+
+            for l_2 in range(int(date[1]) - 1):
+                date_sum += mouth_365[l_2]
+            date_sum += int(date[0])
+
+            if now_date_s - date_sum > 3:
+                f_w.write(f"{el[0]}\n")
